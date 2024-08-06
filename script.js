@@ -218,6 +218,27 @@ const app = new Vue({
       if (bestMove !== undefined) {
         this.grid[bestMove].figure = 0;
       }
+      this.grid[bestMove].figure = 0;  // ИИ ставит 'O'
+      
+      if (this.checkWinner(this.grid.map(cell => cell.figure === 0 ? 'O' : (cell.figure === 1 ? 'X' : '')))) {
+        this.gameOver = true;
+        this.gameResult = 'lose';
+        return;
+      }
+  
+      // Проверка на победу ИИ
+      if (this.checkWinner(this.grid.map(cell => cell.figure === 0 ? 'O' : (cell.figure === 1 ? 'X' : '')))) {
+        this.gameOver = true;
+        this.gameResult = 'lose';
+        return;
+      }
+      
+      // Проверка на ничью
+      if (this.grid.every(cell => cell.figure !== -1)) {
+        this.gameOver = true;
+        this.gameResult = 'draw';
+        return;
+      }
     },
     
     // Алгоритм Minimax с альфа-бета усечением.

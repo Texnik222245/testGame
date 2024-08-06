@@ -90,7 +90,8 @@ const app = new Vue({
     return {
       ...state,  // Состояние игры.
       isAIThinking: false,  // Флаг, указывающий, думает ли ИИ.
-      user: null
+      user: null,
+      score: 0
     };
   },
 
@@ -148,6 +149,7 @@ const app = new Vue({
       if (this.winner) {
         this.gameOver = true;
         this.gameResult = 'win';
+        this.updateScore('win');
         return;
       }
       
@@ -211,6 +213,7 @@ const app = new Vue({
         if (this.checkWinner(this.grid.map(cell => cell.figure === 0 ? 'O' : (cell.figure === 1 ? 'X' : ''))) === 'O') {
           this.gameOver = true;
           this.gameResult = 'lose';
+          this.updateScore('lose');
           return;
         }
       }
@@ -229,6 +232,7 @@ const app = new Vue({
         if (this.checkWinner(this.grid.map(cell => cell.figure === 0 ? 'O' : (cell.figure === 1 ? 'X' : ''))) === 'O') {
           this.gameOver = true;
           this.gameResult = 'lose';
+          this.updateScore('lose');
           return;
         }  
       }
@@ -385,6 +389,15 @@ const app = new Vue({
       }
       
       return score;
+    },
+    updateScore(result) {
+      if (result === 'win') {
+        this.score += 1;
+      } else if (result === 'lose') {
+        this.score -= 0.5;
+      }
+      // Округляем до одного знака после запятой
+      this.score = Math.round(this.score * 10) / 10;
     }
   },
   created() {

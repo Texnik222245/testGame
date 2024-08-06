@@ -19,7 +19,7 @@
 <body>
 <!-- partial:index.partial.html -->
 <div id="app">
-  <div id="user-info" v-if="user">{{ user.first_name }}</div>
+  <div id="user-info" v-if="user">{{ user.first_name }}: {{ score }}</div>
   <transition v-on:enter="enter" v-bind:css="false" appear>
     <div class="butter-cheese-eggs" v-show="true">
       <div v-for="(block, index) in grid" @click="!isAIThinking && select(index)">

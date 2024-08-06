@@ -220,15 +220,7 @@ const app = new Vue({
       }
       this.grid[bestMove].figure = 0;  // ИИ ставит 'O'
 
-      if (this.winner) {
-        this.gameOver = true;
-        this.gameResult = 'lose';
-        return;
-      }
-      
-  
-      // Проверка на победу ИИ
-      if (this.checkWinner(this.grid.map(cell => cell.figure === 0 ? 'O' : (cell.figure === 1 ? 'X' : '')))) {
+      if (this.checkWinner(this.grid.map(cell => cell.figure === 0 ? 'O' : (cell.figure === 1 ? 'X' : ''))) === 'O') {
         this.gameOver = true;
         this.gameResult = 'lose';
         return;

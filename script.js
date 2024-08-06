@@ -1,3 +1,5 @@
+const tg = window.Telegram.WebApp;
+const user = tg.initDataUnsafe.user;
 // Начальное состояние игры, включает сетку (grid) и флаг, указывающий, чей ход (myTurn).
 let state = {
   grid: _.map(_.range(0, 9), index => {
@@ -87,7 +89,8 @@ const app = new Vue({
   data() {
     return {
       ...state,  // Состояние игры.
-      isAIThinking: false  // Флаг, указывающий, думает ли ИИ.
+      isAIThinking: false,  // Флаг, указывающий, думает ли ИИ.
+      user: null
     };
   },
 
@@ -383,5 +386,8 @@ const app = new Vue({
       
       return score;
     }
-  }
+  },
+  created() {
+    this.user = tg.initDataUnsafe.user;
+  },
 });
